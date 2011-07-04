@@ -1,0 +1,23 @@
+Fullscreen Tools
+================
+
+Fullscreen Tools contains a collection of simple tools to force
+applications into fullscreen mode by different means. Those are right
+now mostly just hacks and might not work without some customization in
+the source code.
+
+capturewindow
+-------------
+Create a window with a simple black background and captures another
+applications window in it. The parent window can be resized and put
+into fullscreen mode.
+
+decorations.py
+--------------
+Removes window decorations and moves window to the top/left of the screen.
+
+windowhierachy
+--------------
+Displays the hierachy of windows in X11.
+
+# EOF #

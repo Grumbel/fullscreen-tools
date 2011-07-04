@@ -1,0 +1,6 @@
+.sconsign.dblite
+*~
+*.o
+capturewindow
+windowhierachy
+xquerytree
