@@ -1,6 +1,8 @@
 .sconsign.dblite
 *~
 *.o
+*.os
+*.so
 capturewindow
 windowhierachy
 xquerytree
