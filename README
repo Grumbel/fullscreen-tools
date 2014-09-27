@@ -4,7 +4,7 @@ Fullscreen Tools
 Fullscreen Tools contains a collection of simple tools to force
 applications into fullscreen mode by different means. Those are right
 now mostly just hacks and might not work without some customization in
-the source code. Also no actual resultion switching is provided right
+the source code. Also no actual resolution switching is provided right
 now, use xrandr for that.
 
 capturewindow
@@ -15,7 +15,7 @@ into fullscreen mode. Useful in cases where an application requires a
 resolution or aspect ratio not supported by your monitor or graphics
 card and you want to fill the surrounding space with a letter box.
 
-decorations.py
+windowtool.py
 --------------
 Removes window decorations, sets override redirect and moves window to
 the top/left of the screen. Useful for applications that don't support

@@ -47,13 +47,13 @@ def str2bool(str):
 
 class WindowAction(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
-        if getattr(namespace, 'override_redirect') == None:        
+        if getattr(namespace, 'override_redirect') == None:
             setattr(namespace, 'override_redirect', False)
 
-        if getattr(namespace, 'decorations') == None:            
+        if getattr(namespace, 'decorations') == None:
             setattr(namespace, 'decorations', True)
 
-        if getattr(namespace, 'keep_above') == None:        
+        if getattr(namespace, 'keep_above') == None:
             setattr(namespace, 'keep_above', False)
 
         if getattr(namespace, 'keep_below') == None:
@@ -64,14 +64,14 @@ class FullscreenAction(argparse.Action):
         if getattr(namespace, 'override_redirect') == None:
             setattr(namespace, 'override_redirect', True)
 
-        if getattr(namespace, 'decorations') == None:            
+        if getattr(namespace, 'decorations') == None:
             setattr(namespace, 'decorations', False)
 
         if getattr(namespace, 'keep_above') == None:
             setattr(namespace, 'keep_above', True)
 
         if getattr(namespace, 'keep_below') == None:
-            setattr(namespace, 'keep_below', False)        
+            setattr(namespace, 'keep_below', False)
 
 argp = argparse.ArgumentParser(description="Move, resize and set properties on X11 window")
 
@@ -100,7 +100,6 @@ quick_group.add_argument('-f', '--fullscreen', action=FullscreenAction, nargs=0,
                          help="Short cut for fullscreen mode")
 
 args = argp.parse_args()
-exit(0)
 
 for window in args.windows:
     if window == "ACTIVE":
@@ -115,16 +114,19 @@ for window in args.windows:
     if args.decorations != None:
         print "Setting decorations:", args.decorations
         if args.decorations:
+            time.sleep(1)
             w.set_decorations(gtk.gdk.DECOR_ALL)
         else:
+            time.sleep(1)
             w.set_decorations(0)
 
     if args.override_redirect != None:
-        w.set_override_redirect(args.override_redirect)   
-        gtk.gdk.flush()    
+        w.set_override_redirect(args.override_redirect)
+        gtk.gdk.flush()
         time.sleep(0.5)
 
     if args.position:
+        time.sleep(1)
         w.move(args.position[0], args.position[1])
 
     elif args.keep_above != None:
