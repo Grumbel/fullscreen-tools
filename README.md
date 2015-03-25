@@ -7,6 +7,7 @@ now mostly just hacks and might not work without some customization in
 the source code. Also no actual resolution switching is provided right
 now, use xrandr for that.
 
+
 capturewindow
 -------------
 Create a window with a simple black background and captures another
@@ -15,15 +16,15 @@ into fullscreen mode. Useful in cases where an application requires a
 resolution or aspect ratio not supported by your monitor or graphics
 card and you want to fill the surrounding space with a letter box.
 
+
 windowtool.py
 --------------
 Removes window decorations, sets override redirect and moves window to
 the top/left of the screen. Useful for applications that don't support
 fullscreen properly in multi monitor configurations.
 
+
 windowhierachy
 --------------
 Displays the hierachy of windows in X11, mainly useful for debugging
 or getting the window id of subwindows.
-
-# EOF #
