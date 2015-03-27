@@ -1,5 +1,0 @@
-env = Environment(CFLAGS=["-O2", "-g", "-Wall", "-Werror"])
-env.ParseConfig("sdl-config --cflags")
-env.SharedLibrary("sdl-hack", ["sdl-hack.c"])
-
-# EOF #

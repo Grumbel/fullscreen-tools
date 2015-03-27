@@ -8,6 +8,17 @@ the source code. Also no actual resolution switching is provided right
 now, use xrandr for that.
 
 
+Compilation
+-----------
+
+For compilation type:
+
+    mkdir build
+    cd build
+    cmake ..
+    make
+
+
 capturewindow
 -------------
 Create a window with a simple black background and captures another
@@ -28,3 +39,17 @@ windowhierachy
 --------------
 Displays the hierachy of windows in X11, mainly useful for debugging
 or getting the window id of subwindows.
+
+
+sdl-hack
+--------
+
+sdl-hack is a simple LD_PRLOAD based hack that lets you get between
+SDL and a game to override specific behaviour. For example if a game
+requests fullscreen mode and provides no option to switch to window
+mode, you can force it to be in window mode.
+
+Usage:
+
+    sdl-hack APPNAME
+

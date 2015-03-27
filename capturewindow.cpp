@@ -36,7 +36,7 @@ unsigned int hex2int(const char* str)
   }
 }
 
-void set_decorations(Display *dpy, Window w, unsigned long decorations)
+void set_decorations(Display *dpy, Window w, int decorations)
 {
   MotifWmHints hints;
   memset(&hints, 0, sizeof(hints));
@@ -45,8 +45,8 @@ void set_decorations(Display *dpy, Window w, unsigned long decorations)
 
   Atom hints_atom = XInternAtom(dpy, _XA_MOTIF_WM_HINTS, True);
 
-  XChangeProperty(dpy, w,                         
-                  hints_atom, hints_atom, 32,                             
+  XChangeProperty(dpy, w,
+                  hints_atom, hints_atom, 32,
                   PropModeReplace,
                   reinterpret_cast<unsigned char*>(&hints),
                   PROP_MOTIF_WM_HINTS_ELEMENTS);
@@ -55,15 +55,15 @@ void set_decorations(Display *dpy, Window w, unsigned long decorations)
 void run_app(Window forgein_window)
 {
   Display* dpy = XOpenDisplay(NULL);
-  
+
   Window window = XCreateSimpleWindow(dpy, DefaultRootWindow(dpy),
-                                      0, 0, 
-                                      1024, 768, 
+                                      0, 0,
+                                      1024, 768,
                                       0, // borderwidth
                                       0, // border
                                       0x000000); // background
-  
-  XSelectInput(dpy, window, 
+
+  XSelectInput(dpy, window,
                KeyPressMask      |
                KeyReleaseMask    |
                ButtonPressMask   |
@@ -86,7 +86,7 @@ void run_app(Window forgein_window)
   {
     XEvent event;
     XNextEvent (dpy, &event);
-     
+
     switch (event.type)
     {
       case ButtonPress:
@@ -122,7 +122,7 @@ void run_app(Window forgein_window)
 
       case ConfigureNotify:
         std::cout << "ConfigureNotify: "
-                  << event.xconfigure.width << "x" << event.xconfigure.height 
+                  << event.xconfigure.width << "x" << event.xconfigure.height
                   << "+" << event.xconfigure.x << "+" << event.xconfigure.y << std::endl;
         {
           XWindowAttributes attr;
@@ -130,7 +130,7 @@ void run_app(Window forgein_window)
           std::cout << " --  " << attr.x << "+" << attr.y << " " << attr.width << "x" << attr.height << std::endl;
           XResizeWindow(dpy, forgein_window, attr.width, event.xconfigure.height);
           XGetWindowAttributes(dpy, forgein_window, &attr);
-          XMoveWindow(dpy, forgein_window, 
+          XMoveWindow(dpy, forgein_window,
                       event.xconfigure.width/2  - attr.width/2,
                       event.xconfigure.height/2 - attr.height/2);
           std::cout << " --  " << attr.x << "+" << attr.y << " " << attr.width << "x" << attr.height << std::endl;
