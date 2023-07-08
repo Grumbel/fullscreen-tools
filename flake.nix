@@ -1,0 +1,40 @@
+{
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
+    flake-utils.url = "github:numtide/flake-utils";
+  };
+
+  outputs = { self, nixpkgs, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in {
+        packages = rec {
+          default = fullscreentools;
+
+          fullscreentools = pkgs.stdenv.mkDerivation rec {
+            pname = "fullscreentools";
+            version = "0.0.0";
+
+            src = ./.;
+
+            nativeBuildInputs = with pkgs; [
+              cmake
+              pkg-config
+            ];
+
+            buildInputs = with pkgs; [
+              SDL
+              xorg.libX11
+              motif
+              boost
+            ];
+
+            postFixup = ''
+               sed -i "s#libsdl-hack.so#$out/lib/libsdl-hack.so#" $out/bin/sdl-hack.sh
+            '';
+          };
+        };
+      }
+    );
+}
