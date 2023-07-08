@@ -23,17 +23,25 @@ target_compile_options(windowhierachy PRIVATE ${WARNINGS_CXX_FLAGS})
 target_link_libraries(windowhierachy
   ${X11_LIBRARIES}
   ${MOTIF_LIBRARIES})
+install(TARGETS windowhierachy
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 add_executable(capturewindow capturewindow.cpp)
 target_compile_options(capturewindow PRIVATE ${WARNINGS_CXX_FLAGS})
 target_link_libraries(capturewindow
   ${X11_LIBRARIES}
   ${MOTIF_LIBRARIES})
+install(TARGETS capturewindow
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 add_library(sdl-hack SHARED sdl-hack.c)
 target_include_directories(sdl-hack SYSTEM PRIVATE
   ${SDL_INCLUDE_DIR})
 target_link_libraries(sdl-hack
   ${SDL_LIBRARIES})
+install(TARGETS sdl-hack
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(PROGRAMS sdl-hack.sh
+  DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 # EOF #
