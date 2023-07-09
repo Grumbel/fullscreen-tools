@@ -27,7 +27,7 @@
               SDL
               xorg.libX11
               motif
-              boost
+              fmt
             ];
 
             postFixup = ''

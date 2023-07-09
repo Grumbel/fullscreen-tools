@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.0)
 project(fullscreen-tools VERSION 0.3.0)
 
+include(GNUInstallDirs)
+
 set(WARNINGS 0 CACHE BOOL "Switch on extra warnings")
 
 if(WARNINGS)
@@ -10,9 +12,11 @@ if(WARNINGS)
   # -Winline -Wfloat-equal -Wunreachable-code
 endif()
 
+find_package(PkgConfig)
 find_package(X11 REQUIRED)
 find_package(Motif REQUIRED)
 find_package(SDL REQUIRED)
+find_package(fmt REQUIRED)
 
 include_directories(SYSTEM
   ${X11_INCLUDE_DIR}
@@ -21,8 +25,8 @@ include_directories(SYSTEM
 add_executable(windowhierachy windowhierachy.cpp)
 target_compile_options(windowhierachy PRIVATE ${WARNINGS_CXX_FLAGS})
 target_link_libraries(windowhierachy
-  ${X11_LIBRARIES}
-  ${MOTIF_LIBRARIES})
+  X11::X11
+  fmt::fmt)
 install(TARGETS windowhierachy
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 

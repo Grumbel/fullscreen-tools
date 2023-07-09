@@ -14,7 +14,7 @@
 //  You should have received a copy of the GNU General Public License
 //  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#include <boost/format.hpp>
+#include <fmt/format.h>
 #include <iostream>
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
@@ -33,12 +33,11 @@ void traverse_hierachy(Display* dpy, Window win, int depth = 0)
     }
     XFree((char*)(text.value));
 
-    std::cout << (boost::format("%-35s %12s %12s  \"%s\"")
-                  % (boost::format("%sWindow: 0x%08x") % std::string(depth*2, ' ') % win)
-                  % (boost::format("%d,%d") % attr.x % attr.y)
-                  % (boost::format("%dx%d") % attr.width % attr.height)
-                  % title)
-              << std::endl;
+    fmt::print("{:<35s} {:12s} {:12s}  \"{}\"\n",
+               fmt::format("{}Window: 0x{:08x}", std::string(depth*2, ' '), win),
+               fmt::format("{},{}", attr.x, attr.y),
+               fmt::format("{}x{}", attr.width, attr.height),
+               title);
   }
 
   Window root_return;
@@ -59,7 +58,7 @@ void traverse_hierachy(Display* dpy, Window win, int depth = 0)
 int main(int argc, char** argv)
 {
   Display* dpy = XOpenDisplay(NULL);
-  
+
   traverse_hierachy(dpy, DefaultRootWindow(dpy));
 
   XCloseDisplay(dpy);
