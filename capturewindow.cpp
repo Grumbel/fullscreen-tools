@@ -16,12 +16,13 @@
 
 #include <unistd.h>
 #include <stdexcept>
-#include <iostream>
 #include <stdio.h>
 #include <X11/Xlib.h>
 #include <X11/keysym.h>
 #include <Xm/MwmUtil.h>
 #include <string.h>
+
+#include <fmt/format.h>
 
 unsigned int hex2int(const char* str)
 {
@@ -90,15 +91,15 @@ void run_app(Window forgein_window)
     switch (event.type)
     {
       case ButtonPress:
-        std::cout << "ButtonPress" << std::endl;
+        fmt::print("ButtonPress\n");
         break;
 
       case ButtonRelease:
-        std::cout << "ButtonPress" << std::endl;
+        fmt::print("ButtonPress\n");
         break;
 
       case KeyPress:
-        std::cout << "KeyPress" << std::endl;
+        fmt::print("KeyPress\n");
         {
           KeySym sym = XLookupKeysym(&event.xkey,0);
           switch (sym)
@@ -115,30 +116,30 @@ void run_app(Window forgein_window)
         break;
 
       case KeyRelease:
-        std::cout << "KeyRelease" << std::endl;
+        fmt::print("KeyRelease\n");
         // doesn't work with Wine/Gargoyle?
         XSendEvent(dpy, forgein_window, True, KeyReleaseMask, &event);
         break;
 
       case ConfigureNotify:
-        std::cout << "ConfigureNotify: "
-                  << event.xconfigure.width << "x" << event.xconfigure.height
-                  << "+" << event.xconfigure.x << "+" << event.xconfigure.y << std::endl;
+        fmt::print("ConfigureNotify: {}x{}+{}+{}\n",
+                   event.xconfigure.width, event.xconfigure.height,
+                   event.xconfigure.x, event.xconfigure.y);
         {
           XWindowAttributes attr;
           XGetWindowAttributes(dpy, forgein_window, &attr);
-          std::cout << " --  " << attr.x << "+" << attr.y << " " << attr.width << "x" << attr.height << std::endl;
+          fmt::print(" --  {}+{} {}x{}\n", attr.x, attr.y, attr.width, attr.height);
           XResizeWindow(dpy, forgein_window, attr.width, event.xconfigure.height);
           XGetWindowAttributes(dpy, forgein_window, &attr);
           XMoveWindow(dpy, forgein_window,
                       event.xconfigure.width/2  - attr.width/2,
                       event.xconfigure.height/2 - attr.height/2);
-          std::cout << " --  " << attr.x << "+" << attr.y << " " << attr.width << "x" << attr.height << std::endl;
+          fmt::print(" --  {}+{} {}+{}\n", attr.x, attr.y, attr.width, attr.height);
         }
         break;
 
       default:
-        std::cout << "unhandled message type" << std::endl;
+        fmt::print("unhandled message type\n");
         break;
     }
   }
@@ -152,7 +153,7 @@ int main(int argc, char** argv)
 {
   if (argc != 2)
   {
-    std::cout << "Usage: " << argv[0] << " WINDOWID" << std::endl;
+    fmt::print("Usage: {} WINDOWID\n", argv[0]);
   }
   else
   {

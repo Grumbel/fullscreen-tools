@@ -39,7 +39,8 @@ add_executable(capturewindow capturewindow.cpp)
 target_compile_options(capturewindow PRIVATE ${WARNINGS_CXX_FLAGS})
 target_link_libraries(capturewindow
   ${X11_LIBRARIES}
-  ${MOTIF_LIBRARIES})
+  ${MOTIF_LIBRARIES}
+  fmt::fmt)
 install(TARGETS capturewindow
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
