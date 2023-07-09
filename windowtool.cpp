@@ -94,6 +94,8 @@ void print_help(std::string_view arg0)
     "  --no-keep-below   Disable keep-below\n"
     "  --move X,Y        Move window to X,Y\n"
     "  --resize XxY      Resize window to WxH\n",
+    "  --fullscreen      Shortcut for fullscreen mode\n",
+    "  --window          Shortcut for window mode\n",
     arg0);
 }
 
@@ -124,6 +126,16 @@ Options parse_args(int argc, char** argv)
       } else if (arg == "--keep-below" || arg == "-b") {
         opts.keep_below = true;
       } else if (arg == "--no-keep-below" || arg == "-B") {
+        opts.keep_below = false;
+      } else if (arg == "--fullscreen" || arg == "-f") {
+        opts.override_redirect = true;
+        opts.decorations = false;
+        opts.keep_above = true;
+        opts.keep_below = false;
+      } else if (arg == "--window" || arg == "-w") {
+        opts.override_redirect = false;
+        opts.decorations = true;
+        opts.keep_above = false;
         opts.keep_below = false;
       } else if (arg == "--move" || arg == "-m") {
         i += 1;
