@@ -25,9 +25,10 @@
 
             buildInputs = with pkgs; [
               SDL
-              xorg.libX11
-              motif
               fmt
+              gtkmm2
+              motif
+              xorg.libX11
             ];
 
             postFixup = ''

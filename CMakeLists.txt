@@ -3,6 +3,10 @@ project(fullscreen-tools VERSION 0.3.0)
 
 include(GNUInstallDirs)
 
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 set(WARNINGS 0 CACHE BOOL "Switch on extra warnings")
 
 if(WARNINGS)
@@ -17,6 +21,7 @@ find_package(X11 REQUIRED)
 find_package(Motif REQUIRED)
 find_package(SDL REQUIRED)
 find_package(fmt REQUIRED)
+pkg_check_modules(GTKMM gtkmm-2.4 IMPORTED_TARGET)
 
 include_directories(SYSTEM
   ${X11_INCLUDE_DIR}
@@ -47,5 +52,14 @@ install(TARGETS sdl-hack
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(PROGRAMS sdl-hack.sh
   DESTINATION ${CMAKE_INSTALL_BINDIR})
+
+add_executable(windowtool windowtool.cpp)
+target_compile_options(windowtool PRIVATE ${WARNINGS_CXX_FLAGS})
+target_link_libraries(windowtool
+  X11::xcb
+  fmt::fmt
+  PkgConfig::GTKMM)
+install(TARGETS windowtool
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 # EOF #
